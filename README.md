@@ -47,7 +47,7 @@ SkyCanvas is an innovative project initiated by Purdue University, aimed at revo
 A detailed budget estimate will be provided upon further assessment of the project requirements, covering drones, software, web hosting, and contingency expenses.
 
 ### Conclusion
-SkyCanvas represents a forward-thinking approach to aerial imagery, combining technological innovation with artistic expression. This project not only highlights the technological prowess of Purdue Fort Wayne University but also aims to foster community engagement through breathtaking aerial displays, meticulously tailored to the audience's perspective.
+SkyCanvas represents a forward-thinking approach to aerial imagery, combining technological innovation with artistic expression. This project not only highlights the technological prowess of Purdue University but also aims to foster community engagement through breathtaking aerial displays, meticulously tailored to the audience's perspective.
 
 ---
 
