@@ -30,11 +30,11 @@ SkyCanvas is an innovative project initiated by Purdue University, aimed at revo
 - Development tools and necessary software licenses.
 
 ### Project Timeline
-- **Months 1-3**: Focus on the development of algorithms for image segmentation and drone coordination, emphasizing viewing angle optimization.
-- **Months 2-4**: Development phase for the Flask web application.
-- **Months 4-6**: Conduct simulation testing, incorporating adjustments for viewing angles.
-- **Months 6-8**: Perform controlled live tests to refine system functionality and performance.
-- **Month 9**: Execute final system implementation and conduct a full-scale public demonstration.
+- **Weeks 1-3**: Focus on the development of algorithms for image segmentation and drone coordination, emphasizing viewing angle optimization.
+- **Weeks 2-4**: Development phase for the Flask web application.
+- **Weeks 4-6**: Conduct simulation testing, incorporating adjustments for viewing angles.
+- **Weeks 6-8**: Perform controlled live tests to refine system functionality and performance.
+- **Weeks 9**: Execute final system implementation and conduct a full-scale public demonstration.
 
 ### Budget Estimate
 A detailed budget estimate will be provided upon further assessment of the project requirements, covering drones, software, web hosting, and contingency expenses.
