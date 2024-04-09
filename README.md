@@ -45,3 +45,5 @@ SkyCanvas represents a forward-thinking approach to aerial imagery, combining te
 ---
 
 For more information, contributions, or inquiries, please feel free to reach out through the [Issues](#) or [Pull Requests](#) sections of this repository. Your feedback and participation are highly valued as we strive to bring this visionary project to life.
+
+
