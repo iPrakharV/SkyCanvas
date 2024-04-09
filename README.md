@@ -6,9 +6,11 @@
 SkyCanvas is an innovative project initiated by Purdue University, aimed at revolutionizing aerial displays through the integration of advanced image processing and drone technology. This project is designed to create highly accurate aerial representations of uploaded images, with a unique emphasis on optimizing these displays for audience viewing angles, ensuring the integrity of the visual experience from various perspectives.
 
 ### Head Developers:<br>
-<a href="https://github.com/iPrakharV/SkyCanvas/graphs/contributors">
+<!--<a href="https://github.com/iPrakharV/SkyCanvas/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=iPrakharV/SkyCanvas" />
-</a>
+</a>-->
+- Abhisar Anand
+- Prakhar Verma
 
 ### Objectives
 - **Advanced Image Processing**: Develop cutting-edge algorithms for analyzing and segmenting uploaded images for precise drone portrayal.
