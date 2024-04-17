@@ -28,8 +28,8 @@ class GraphPlot3D:
         try:
             img = plt.imread(image_path)
             imagebox = OffsetImage(img, zoom=zoom)
-            ab = AnnotationBbox(imagebox, (0.5, 0.5), frameon=False,
-                                xycoords='axes fraction', box_alignment=(0.5, 0.5))
+            ab = AnnotationBbox(imagebox, (0, 0), frameon=False,
+                                xycoords='axes fraction', box_alignment=(0, 0))
             self.ax.add_artist(ab)
         except FileNotFoundError:
             print(f"File not found: {image_path}")
@@ -41,10 +41,19 @@ class GraphPlot3D:
         self.ax.set_xlabel("X-axis", fontsize=12)
         self.ax.set_ylabel("Y-axis", fontsize=12)
         self.ax.set_zlabel("Z-axis", fontsize=12)
+        
+        # Set tick values for each axis
+        x_ticks = np.linspace(min(self.node_xyz[:, 0]), max(self.node_xyz[:, 0]), 5)
+        y_ticks = np.linspace(min(self.node_xyz[:, 1]), max(self.node_xyz[:, 1]), 5)
+        z_ticks = np.linspace(min(self.node_xyz[:, 2]), max(self.node_xyz[:, 2]), 5)
+        self.ax.set_xticks(x_ticks)
+        self.ax.set_yticks(y_ticks)
+        self.ax.set_zticks(z_ticks)
+        
         # Optionally turn off the axis
-        self.ax.set_xticks([])
-        self.ax.set_yticks([])
-        self.ax.set_zticks([])
+        # self.ax.set_xticks([])
+        # self.ax.set_yticks([])
+        # self.ax.set_zticks([])
 
     def show(self):
         plt.show()
@@ -66,8 +75,8 @@ graph_plot.add_labels()
 # Format the axes
 graph_plot.format_axes()
 
-# Before showing the plot, add the image at the origin
-graph_plot.add_image_at_origin('hooman.png', zoom=0.05)
+# Before showing the plot, add the image at the bottom left corner
+graph_plot.add_image_at_origin('hooman.png', zoom=0.02)
 
 # Finally, display the plot
 graph_plot.show()
