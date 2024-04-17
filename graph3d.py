@@ -2,7 +2,12 @@ import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib import animation
+import random
 from mpl_toolkits.mplot3d import Axes3D
+
+# Make sure to use an interactive backend like TkAgg, Qt5Agg, etc.
+# import matplotlib
+# matplotlib.use('TkAgg')
 
 # Create the dodecahedral graph
 G = nx.dodecahedral_graph()
@@ -12,31 +17,38 @@ pos = nx.spectral_layout(G, dim=3)
 nodes = np.array([pos[v] for v in sorted(G)])
 edges = np.array([(pos[u], pos[v]) for u, v in G.edges()])
 
-# Set up the figure and axis
+# Setup the 3D figure
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
+ax.set_axis_off()  # Hide the grid and axis
 
-# Initialize function for the animation
-def init():
-    # Plot the nodes
-    ax.scatter(*nodes.T, s=100, color='blue', alpha=0.6)
-    # Plot the edges
-    for edge in edges:
-        ax.plot(*zip(*edge), color='gray')
-    # Set the initial view
-    ax.view_init(elev=20, azim=30)
-    # Hide the axes
-    ax.set_axis_off()
-    return fig,
+node = [0]  # Start with node 0 for the random walk
 
-# Update function for the animation
-def update(num):
-    # Rotate the view
-    ax.view_init(elev=20, azim=num)
+# Frame update function for the animation
+def _frame_update(index):
+    ax.clear()  # Clear previous frame
+    ax.set_axis_off()  # Ensure axis is off after clearing
+
+    # Scatter plot for nodes and plot for edges
+    ax.scatter(*nodes.T, alpha=0.2, s=100, color="blue")
+    for vizedge in edges:
+        ax.plot(*vizedge.T, color="gray")
+    
+    # Random walk logic
+    neighbors = list(G.neighbors(node[0]))
+    if index % 5 == 0:  # Change the node at every 5th frame
+        node[0] = random.choice(neighbors)
+    node_pos = nodes[node[0]]
+    
+    # Highlight the current node in the random walk
+    ax.scatter(*node_pos, alpha=1, marker="s", color="red", s=100)
+    
+    # Rotate the view for a dynamic effect
+    ax.view_init(elev=30, azim=index * 0.5)
+    
     return fig,
 
 # Create the animation
-ani = animation.FuncAnimation(fig, update, init_func=init, frames=range(0, 360, 2), interval=50, blit=False)
+ani = animation.FuncAnimation(fig, _frame_update, frames=range(100), interval=50, blit=False)
 
-# Display the plot
-plt.show()
+plt.show()  # Display the plot
