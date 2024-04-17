@@ -24,24 +24,34 @@ class GraphPlot3D:
         for i, xyz in enumerate(self.node_xyz):
             self.ax.text(*xyz, f'{i}', color=font_color, fontsize=font_size, ha='center', va='center')
 
-    def add_image_at_origin(self, image_path, zoom=0.1, layer=0):
-        img = plt.imread(image_path)
-        imagebox = OffsetImage(img, zoom=zoom)
-        ab = AnnotationBbox(imagebox, (0, 0, layer), frameon=False, boxcoords="data", pad=0, xycoords='data')
-        self.ax.add_artist(ab)
+    def add_image_at_origin(self, image_path, zoom=0.1):
+        try:
+            img = plt.imread(image_path)
+            imagebox = OffsetImage(img, zoom=zoom)
+            ab = AnnotationBbox(imagebox, (0.5, 0.5), frameon=False,
+                                xycoords='axes fraction', box_alignment=(0.5, 0.5))
+            self.ax.add_artist(ab)
+        except FileNotFoundError:
+            print(f"File not found: {image_path}")
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
     def format_axes(self):
-        self.ax.grid(True)
+        self.ax.grid(False)  # Set to True if you want the grid
         self.ax.set_xlabel("X-axis", fontsize=12)
         self.ax.set_ylabel("Y-axis", fontsize=12)
         self.ax.set_zlabel("Z-axis", fontsize=12)
-        self.ax.set_axis_off()  # Optional: turn off the axis
+        # Optionally turn off the axis
+        self.ax.set_xticks([])
+        self.ax.set_yticks([])
+        self.ax.set_zticks([])
 
     def show(self):
         plt.show()
 
 # Create a cycle graph
 G = nx.cycle_graph(20)
+
 # Generate a 3D spring layout
 pos = nx.spring_layout(G, dim=3, seed=779)
 
@@ -53,8 +63,11 @@ graph_plot.plot_nodes()
 graph_plot.plot_edges()
 graph_plot.add_labels()
 
-# Load an image and place it at the origin
-graph_plot.add_image_at_origin('/assets/images/hooman.png', zoom=0.05, layer=-0.1)  
-# Format the axes and show the plot
+# Format the axes
 graph_plot.format_axes()
+
+# Before showing the plot, add the image at the origin
+graph_plot.add_image_at_origin('hooman.png', zoom=0.05)
+
+# Finally, display the plot
 graph_plot.show()
