@@ -3,34 +3,50 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-# The graph to visualize
+class GraphPlot3D:
+    def __init__(self, graph, positions):
+        self.graph = graph
+        self.positions = positions
+        self.fig = plt.figure()
+        self.ax = self.fig.add_subplot(111, projection='3d')
+        self.node_xyz = np.array([self.positions[v] for v in sorted(self.graph)])
+
+    def plot_nodes(self, node_color='hotpink', node_size=100, edge_color='w'):
+        self.ax.scatter(*self.node_xyz.T, s=node_size, c=node_color, edgecolor=edge_color)
+
+    def plot_edges(self, line_color='lightpink'):
+        edge_xyz = np.array([(self.positions[u], self.positions[v]) for u, v in self.graph.edges()])
+        for vizedge in edge_xyz:
+            self.ax.plot(*vizedge.T, color=line_color)
+
+    def add_labels(self, font_color='deeppink', font_size=10):
+        for i, xyz in enumerate(self.node_xyz):
+            self.ax.text(*xyz, f'{i}', color=font_color, fontsize=font_size, ha='center', va='center')
+
+    def format_axes(self):
+        self.ax.grid(True)
+        self.ax.set_xlabel("X-axis", fontsize=12)
+        self.ax.set_ylabel("Y-axis", fontsize=12)
+        self.ax.set_zlabel("Z-axis", fontsize=12)
+
+    def show(self):
+        plt.show()
+
+
+# Create a cycle graph
 G = nx.cycle_graph(20)
-
-# 3D spring layout
+# Generate a 3D spring layout
 pos = nx.spring_layout(G, dim=3, seed=779)
-# Extract node and edge positions from the layout
-node_xyz = np.array([pos[v] for v in sorted(G)])
-edge_xyz = np.array([(pos[u], pos[v]) for u, v in G.edges()])
 
-# Create the 3D figure
-fig = plt.figure()
-ax = fig.add_subplot(111, projection="3d")
+# Create an instance of the GraphPlot3D class
+graph_plot = GraphPlot3D(G, pos)
 
-# Plot the nodes - in shades of pink with edge colors in white for contrast
-ax.scatter(*node_xyz.T, s=100, c="hotpink", edgecolor="w")
+# Plot nodes, edges, and add labels
+graph_plot.plot_nodes()
+graph_plot.plot_edges()
+graph_plot.add_labels()
 
-# Plot the edges in a lighter shade of pink
-for vizedge in edge_xyz:
-    ax.plot(*vizedge.T, color="lightpink")
-
-# Add node labels with a fabulous pink hue
-for i, xyz in enumerate(node_xyz):
-    ax.text(*xyz, f'{i}', color='deeppink', fontsize=10, ha='center', va='center')
-
-# Format axes to show the tick labels
-ax.grid(True)
-ax.set_xlabel("X-axis", fontsize=12)
-ax.set_ylabel("Y-axis", fontsize=12)
-ax.set_zlabel("Z-axis", fontsize=12)
-
-plt.show()
+# Format the axes and show the plot
+graph_plot.format_axes()
+graph_plot.show()
+                                                
