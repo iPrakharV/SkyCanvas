@@ -54,8 +54,7 @@ graph_plot.plot_edges()
 graph_plot.add_labels()
 
 # Load an image and place it at the origin
-graph_plot.add_image_at_origin('/assets/images/hooman.png.png', zoom=0.05, layer=-0.1)  # Adjust 'path_to_your_image.png' and other parameters as needed
-
+graph_plot.add_image_at_origin('/assets/images/hooman.png', zoom=0.05, layer=-0.1)  
 # Format the axes and show the plot
 graph_plot.format_axes()
 graph_plot.show()
