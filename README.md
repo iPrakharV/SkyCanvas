@@ -1,53 +1,67 @@
-# SkyCanvas: Perspective-Aware Aerial Imagery System
+# SkyCanvas
 
-## Intelligent Drone Display System with Viewing Angle Optimization at Purdue University
+SkyCanvas is a Python prototype for exploring 3D graph layouts and simple random-walk visualizations. It uses NetworkX to build graph structures and Matplotlib to render node positions, edges, labels, and a highlighted walk state.
 
-### Introduction
-SkyCanvas is an innovative project initiated by Purdue University, aimed at revolutionizing aerial displays through the integration of advanced image processing and drone technology. This project is designed to create highly accurate aerial representations of uploaded images, with a unique emphasis on optimizing these displays for audience viewing angles, ensuring the integrity of the visual experience from various perspectives.
+The project was inspired by the idea of mapping points in 3D space for aerial displays. This repository is not a drone control system. It does not include image segmentation, flight planning, collision avoidance, LED control, or hardware integration.
 
-### Team:<br>
-<a href="https://github.com/iPrakharV/SkyCanvas/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=iPrakharV/SkyCanvas" />
-</a>
+![SkyCanvas demo](assets/demo.png)
 
+## What it does
 
-### Objectives
-- **Advanced Image Processing**: Develop cutting-edge algorithms for analyzing and segmenting uploaded images for precise drone portrayal.
-- **Dynamic Drone Coordination**: Establish a sophisticated flight management system to guide drones to exact positions, forming a unified image from specific viewing angles, while maintaining safety and avoiding collisions.
-- **Color Accuracy**: Achieve vibrant and true-to-life color representation in the aerial display by precisely matching drone LED colors with the original image.
-- **Interactive Web Platform**: Build a user-friendly, Flask-based web interface to facilitate image uploads, provide display previews, and allow for real-time viewing angle adjustments.
-- **Safety and Compliance**: Ensure all drone operations are in strict adherence to regulatory and safety standards.
+- Builds 3D layouts for cycle and dodecahedral graphs.
+- Renders graph nodes and edges as a 3D Matplotlib scene.
+- Produces a deterministic random walk through the graph.
+- Saves a PNG preview that can be regenerated from the command line.
 
-### Enhanced Methodology
-- **Viewing Angle Adjustment**: Implement a module to dynamically adjust drone positions based on audience viewing angles, incorporating 3D spatial mapping and calibration to counteract perspective distortion.
-- **Audience Positioning Analysis**: Add functionality to input audience locations and preferred viewing angles to optimize the display for maximum visual fidelity from these points.
-- **Simulation with Viewing Angles**: Employ advanced simulation tools to rigorously test and refine the aerial display, guaranteeing an optimal visual experience from diverse audience perspectives.
+## Tech stack
 
-### Expected Outcomes
-- A comprehensive web platform enabling efficient image upload and display management, with integrated viewing angle adjustments.
-- An advanced image processing framework that accurately translates images into drone formations, mindful of audience perspective.
-- A robust drone coordination system ensuring a synchronized and safe aerial display.
-- Thorough documentation detailing system setup, operation, and troubleshooting guidelines.
+- Python
+- NetworkX
+- NumPy
+- Matplotlib
+- Pytest
 
-### Resources Required
-- Programmable drones equipped with RGB LEDs.
-- A sizable open testing area, compliant with all relevant regulations.
-- Server infrastructure and hosting services for the Flask application.
-- Development tools and necessary software licenses.
+## Setup
 
-### Project Timeline
-- **Weeks 1-3**: Focus on the development of algorithms for image segmentation and drone coordination, emphasizing viewing angle optimization.
-- **Weeks 2-4**: Development phase for the Flask web application.
-- **Weeks 4-6**: Conduct simulation testing, incorporating adjustments for viewing angles.
-- **Weeks 6-8**: Perform controlled live tests to refine system functionality and performance.
-- **Weeks 9**: Execute final system implementation and conduct a full-scale public demonstration.
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
+```
 
-### Budget Estimate
-A detailed budget estimate will be provided upon further assessment of the project requirements, covering drones, software, web hosting, and contingency expenses.
+## Usage
 
-### Conclusion
-SkyCanvas represents a forward-thinking approach to aerial imagery, combining technological innovation with artistic expression. This project not only highlights the technological prowess of Purdue University but also aims to foster community engagement through breathtaking aerial displays, meticulously tailored to the audience's perspective.
+Render the default dodecahedral graph:
 
----
+```bash
+skycanvas --output assets/demo.png
+```
 
-For more information, contributions, or inquiries, please feel free to reach out through the [Issues](#) or [Pull Requests](#) sections of this repository. Your feedback and participation are highly valued as we strive to bring this visionary project to life.
+Render a cycle graph with a custom node count:
+
+```bash
+skycanvas --graph cycle --nodes 32 --output assets/cycle-demo.png
+```
+
+Run tests:
+
+```bash
+MPLBACKEND=Agg python -m pytest -q
+```
+
+## Project structure
+
+```text
+src/skycanvas/
+  cli.py       Command-line entry point
+  graph.py     Graph construction, random walk, and rendering logic
+tests/
+  test_graph.py
+assets/
+  demo.png     Generated example render
+```
+
+## Current limits
+
+SkyCanvas is a visualization prototype. The next technical step would be mapping image pixels to 3D coordinates, then adding constraint checks for spacing, camera perspective, and animation timing.

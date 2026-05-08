@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "skycanvas"
+version = "0.1.0"
+description = "Python prototype for 3D graph layouts and random-walk visualizations."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = [
+    "matplotlib>=3.8",
+    "networkx>=3.2",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.scripts]
+skycanvas = "skycanvas.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/skycanvas"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
